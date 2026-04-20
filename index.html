@@ -773,6 +773,239 @@
     transform: none;
   }
 
+  /* ─────── Lab ─────── */
+  .lab-intro {
+    max-width: 600px;
+    color: var(--text-dim);
+    font-size: 0.92rem;
+    margin: 0 0 2.5rem;
+  }
+
+  .lab-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.3fr;
+    gap: 1.5rem;
+    align-items: start;
+  }
+
+  .lab-input,
+  .lab-output {
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+
+  .lab-panel-head {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.6rem 1rem;
+    border-bottom: 1px solid var(--line-strong);
+    background: var(--bg-elev);
+  }
+
+  .lab-panel-dots {
+    display: flex;
+    gap: 5px;
+  }
+  .lab-panel-dots span {
+    display: block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--text-mute);
+  }
+
+  .lab-panel-title {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--text-mute);
+  }
+
+  .lab-panel-body {
+    padding: 1.2rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .lab-url-label {
+    display: block;
+  }
+
+  .lab-prompt {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 0.4rem;
+  }
+
+  .lab-url-input {
+    width: 100%;
+    background: var(--bg-elev);
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius);
+    padding: 0.6rem 0.75rem;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.2s var(--ease);
+  }
+  .lab-url-input:focus {
+    border-color: var(--accent);
+  }
+
+  .lab-hint {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--text-mute);
+    margin-top: -0.4rem;
+  }
+
+  .lab-run-btn {
+    background: var(--accent);
+    color: #000;
+    border: none;
+    border-radius: var(--radius);
+    padding: 0.6rem 1.2rem;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s var(--ease), opacity 0.2s;
+    align-self: flex-start;
+  }
+  .lab-run-btn:hover {
+    background: var(--accent-bright);
+  }
+  .lab-run-btn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+
+  .lab-presets {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding-top: 0.25rem;
+  }
+
+  .lab-preset-label {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--text-mute);
+  }
+
+  .lab-preset {
+    background: transparent;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius);
+    padding: 0.2rem 0.6rem;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    cursor: pointer;
+    transition: border-color 0.2s var(--ease), color 0.2s var(--ease);
+  }
+  .lab-preset:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .lab-log {
+    padding: 1rem;
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    color: var(--text-dim);
+    white-space: pre-wrap;
+    max-height: 240px;
+    min-height: 80px;
+    overflow-y: auto;
+    line-height: 1.7;
+  }
+
+  .lab-log-line { display: block; }
+  .log-ok  { color: var(--accent); }
+  .log-err { color: var(--danger); }
+  .log-dim { color: var(--text-mute); }
+
+  .lab-result {
+    border-top: 1px dashed var(--line-strong);
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    animation: labFadeUp 0.25s var(--ease) both;
+  }
+
+  @keyframes labFadeUp {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: none; }
+  }
+
+  .lab-result.hidden { display: none; }
+
+  .lab-result-row {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 0.5rem;
+    align-items: baseline;
+  }
+
+  .lab-result-key {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--text-mute);
+  }
+
+  .lab-result-val {
+    font-size: 0.85rem;
+    color: var(--text);
+    word-break: break-word;
+  }
+
+  .lab-result-big {
+    font-family: var(--font-mono);
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1;
+  }
+
+  .lab-result-img-row { align-items: start; }
+
+  .lab-result-img {
+    width: 100%;
+    max-width: 260px;
+    aspect-ratio: 1200 / 630;
+    object-fit: cover;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius);
+  }
+
+  .lab-result-meta {
+    display: flex;
+    gap: 1rem;
+    padding-top: 0.25rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .lab-result-status,
+  .lab-result-time {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--text-mute);
+  }
+
+  @media (max-width: 760px) {
+    .lab-grid { grid-template-columns: 1fr; }
+    .lab-log  { max-height: 160px; font-size: 0.78rem; }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     * {
       animation-duration: 0.01ms !important;
@@ -798,7 +1031,8 @@
     </a>
     <nav class="nav-links" aria-label="Primary">
       <a href="#works"><span class="idx">01</span>works</a>
-      <a href="#about"><span class="idx">02</span>about</a>
+      <a href="#lab"><span class="idx">02</span>lab</a>
+      <a href="#about"><span class="idx">03</span>about</a>
       <a href="#contact" class="cta-nav">contact →</a>
     </nav>
   </div>
@@ -834,7 +1068,7 @@
     <div class="scroll-hint" aria-hidden="true">
       <span>scroll</span>
       <span class="bar"></span>
-      <span>01 / 03</span>
+      <span>01 / 04</span>
     </div>
   </section>
 
@@ -912,10 +1146,106 @@
     </div>
   </section>
 
+  <!-- ═══════ Lab ═══════ -->
+  <section id="lab" aria-labelledby="lab-label">
+    <div class="sec-label reveal">
+      <span class="idx">02</span>
+      <span id="lab-label">lab</span>
+      <span class="line" aria-hidden="true"></span>
+      <span>// live scraping demo</span>
+    </div>
+
+    <p class="lab-intro reveal">
+      URL を入力して実行すると、ページを取得・解析してメタ情報を抽出します。
+      Python + BeautifulSoup / Playwright で実装する自動化ツールと同じ仕組みのブラウザデモです。
+    </p>
+
+    <div class="lab-grid">
+
+      <!-- 入力パネル -->
+      <div class="lab-input reveal">
+        <div class="lab-panel-head">
+          <span class="lab-panel-dots" aria-hidden="true">
+            <span></span><span></span><span></span>
+          </span>
+          <span class="lab-panel-title">input.sh</span>
+        </div>
+        <div class="lab-panel-body">
+          <label class="lab-url-label" for="lab-url">
+            <span class="lab-prompt">&gt; target_url</span>
+          </label>
+          <input
+            type="url"
+            id="lab-url"
+            class="lab-url-input"
+            placeholder="https://example.com"
+            aria-describedby="lab-url-hint"
+            autocomplete="off"
+            spellcheck="false"
+          />
+          <span id="lab-url-hint" class="lab-hint">http / https のみ</span>
+          <button id="lab-run" class="lab-run-btn">run scrape ▶</button>
+          <div class="lab-presets" aria-label="プリセット URL">
+            <span class="lab-preset-label">try:</span>
+            <button class="lab-preset" data-url="works/ramen-kurotora/index.html">黒虎 LP</button>
+            <button class="lab-preset" data-url="works/aurel-jewelry/index.html">AUREL LP</button>
+            <button class="lab-preset" data-url="https://example.com">example.com</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 出力パネル -->
+      <div class="lab-output reveal">
+        <div class="lab-panel-head">
+          <span class="lab-panel-dots" aria-hidden="true">
+            <span></span><span></span><span></span>
+          </span>
+          <span class="lab-panel-title">scraper.js</span>
+        </div>
+        <div
+          id="lab-log"
+          class="lab-log"
+          role="log"
+          aria-live="polite"
+          aria-label="スクレイピングログ"
+        >
+          <div class="lab-log-line log-dim">&gt; ready. enter a URL and run.</div>
+        </div>
+        <div id="lab-result" class="lab-result hidden" aria-live="polite">
+          <div class="lab-result-row">
+            <span class="lab-result-key">title</span>
+            <span id="lab-res-title" class="lab-result-val">—</span>
+          </div>
+          <div class="lab-result-row">
+            <span class="lab-result-key">description</span>
+            <span id="lab-res-desc" class="lab-result-val">—</span>
+          </div>
+          <div class="lab-result-row">
+            <span class="lab-result-key">h1</span>
+            <span id="lab-res-h1" class="lab-result-val">—</span>
+          </div>
+          <div class="lab-result-row">
+            <span class="lab-result-key">links</span>
+            <span id="lab-res-links" class="lab-result-val lab-result-big">—</span>
+          </div>
+          <div class="lab-result-row lab-result-img-row" id="lab-img-row" style="display:none">
+            <span class="lab-result-key">og:image</span>
+            <img id="lab-res-img" class="lab-result-img" src="" alt="OGP画像" loading="lazy" />
+          </div>
+          <div class="lab-result-meta">
+            <span id="lab-res-status" class="lab-result-status">—</span>
+            <span id="lab-res-time" class="lab-result-time">—</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
   <!-- ═══════ About ═══════ -->
   <section id="about" aria-labelledby="about-label">
     <div class="sec-label reveal">
-      <span class="idx">02</span>
+      <span class="idx">03</span>
       <span id="about-label">about</span>
       <span class="line" aria-hidden="true"></span>
     </div>
@@ -972,7 +1302,7 @@
   <!-- ═══════ Contact ═══════ -->
   <section id="contact" class="contact" aria-labelledby="contact-label">
     <div class="sec-label reveal" style="justify-content: center;">
-      <span class="idx">03</span>
+      <span class="idx">04</span>
       <span id="contact-label">get in touch</span>
     </div>
 
@@ -1014,9 +1344,10 @@
 
   // scroll hint 現在セクション
   const sections = [
-    { id: "top", label: "01 / 03" },
-    { id: "works", label: "02 / 03" },
-    { id: "about", label: "03 / 03" },
+    { id: "top",   label: "01 / 04" },
+    { id: "works", label: "02 / 04" },
+    { id: "lab",   label: "03 / 04" },
+    { id: "about", label: "04 / 04" },
   ];
   const hintLabel = document.querySelector(".scroll-hint span:last-child");
   if (hintLabel && "IntersectionObserver" in window) {
@@ -1033,6 +1364,187 @@
       if (el) io2.observe(el);
     });
   }
+
+  // ─────── Lab スクレイピングデモ ───────
+  (function () {
+    const urlInput = document.getElementById('lab-url');
+    const runBtn   = document.getElementById('lab-run');
+    const logEl    = document.getElementById('lab-log');
+    const resultEl = document.getElementById('lab-result');
+    if (!urlInput || !runBtn || !logEl || !resultEl) return;
+
+    const presets = document.querySelectorAll('.lab-preset');
+    const TIMEOUT = 10000;
+    const SPINNER = ['⠋','⠙','⠹','⠸','⠼','⠴','⠦','⠧','⠇','⠏'];
+    let spinFrame = 0, spinTimer = null;
+
+    function reduced() {
+      return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    }
+
+    function appendLog(text, type) {
+      return new Promise(resolve => {
+        const cls = type === 'ok' ? ' log-ok' : type === 'err' ? ' log-err' : type === 'dim' ? ' log-dim' : '';
+        const div = document.createElement('div');
+        div.className = 'lab-log-line' + cls;
+        logEl.appendChild(div);
+        logEl.scrollTop = logEl.scrollHeight;
+        if (reduced()) { div.textContent = text; resolve(); return; }
+        let i = 0;
+        const ms = Math.min(18, Math.floor(350 / Math.max(text.length, 1)));
+        (function tick() {
+          div.textContent = text.slice(0, ++i);
+          logEl.scrollTop = logEl.scrollHeight;
+          if (i < text.length) setTimeout(tick, ms); else resolve();
+        })();
+      });
+    }
+
+    function startSpinner(label) {
+      const div = document.createElement('div');
+      div.id = 'lab-spinner';
+      div.className = 'lab-log-line';
+      logEl.appendChild(div);
+      if (reduced()) { div.textContent = label + ' ...'; return; }
+      spinFrame = 0;
+      clearInterval(spinTimer);
+      spinTimer = setInterval(() => {
+        div.textContent = SPINNER[spinFrame++ % SPINNER.length] + ' ' + label;
+        logEl.scrollTop = logEl.scrollHeight;
+      }, 80);
+    }
+
+    function stopSpinner() {
+      clearInterval(spinTimer);
+      spinTimer = null;
+      const el = document.getElementById('lab-spinner');
+      if (el) el.remove();
+    }
+
+    function validateUrl(str) {
+      try {
+        const u = new URL(str);
+        if (u.protocol !== 'http:' && u.protocol !== 'https:') return null;
+        const h = u.hostname;
+        if (/^(localhost|127\.|10\.|192\.168\.|172\.(1[6-9]|2\d|3[01])\.)/.test(h)) return null;
+        return u.href;
+      } catch { return null; }
+    }
+
+    function resolveUrl(str) {
+      if (!str.startsWith('http')) return new URL(str, window.location.href).href;
+      return str;
+    }
+
+    function extract(html, base) {
+      const doc = new DOMParser().parseFromString(html, 'text/html');
+      const attr = (sel, a) => { const el = doc.querySelector(sel); return el ? (a ? el.getAttribute(a) : el.textContent.trim()) : ''; };
+      const title    = (attr('title') || '（タイトルなし）').slice(0, 200);
+      const desc     = (attr('meta[name="description"]','content') || attr('meta[property="og:description"]','content') || '（説明なし）').slice(0, 200);
+      const h1       = (attr('h1') || '（h1なし）').slice(0, 200);
+      const linkCount = doc.querySelectorAll('a[href]').length;
+      let ogImg = attr('meta[property="og:image"]','content') || '';
+      if (ogImg) {
+        try {
+          ogImg = new URL(ogImg, base).href;
+          if (!/^https?:/.test(ogImg)) ogImg = '';
+        } catch { ogImg = ''; }
+      }
+      return { title, desc, h1, linkCount, ogImg };
+    }
+
+    function renderResult(data, status, ms) {
+      document.getElementById('lab-res-title').textContent = data.title;
+      document.getElementById('lab-res-desc').textContent  = data.desc;
+      document.getElementById('lab-res-h1').textContent    = data.h1;
+      document.getElementById('lab-res-links').textContent = data.linkCount;
+      document.getElementById('lab-res-status').textContent = 'HTTP ' + status;
+      document.getElementById('lab-res-time').textContent   = ms + ' ms';
+      const imgRow = document.getElementById('lab-img-row');
+      const img    = document.getElementById('lab-res-img');
+      if (data.ogImg) {
+        img.src = data.ogImg;
+        img.onerror = () => { imgRow.style.display = 'none'; };
+        imgRow.style.display = '';
+      } else {
+        imgRow.style.display = 'none';
+      }
+      resultEl.classList.remove('hidden');
+    }
+
+    async function runScrape(raw) {
+      logEl.innerHTML = '';
+      resultEl.classList.add('hidden');
+      const resolved = resolveUrl(raw);
+      const isSameOrigin = resolved.startsWith(window.location.origin + '/') || resolved === window.location.origin;
+      if (!isSameOrigin) {
+        const valid = validateUrl(resolved);
+        if (!valid) {
+          await appendLog('> error: invalid URL. http / https only.', 'err');
+          return;
+        }
+      }
+      const targetUrl = resolved;
+      runBtn.disabled = true;
+      runBtn.setAttribute('aria-busy', 'true');
+      const t0 = performance.now();
+      await appendLog('> init scraper', 'dim');
+      await appendLog('> target: ' + targetUrl.slice(0, 60) + (targetUrl.length > 60 ? '...' : ''));
+
+      let html = '', status = '—';
+      try {
+        const ctrl = new AbortController();
+        const timer = setTimeout(() => ctrl.abort(), TIMEOUT);
+        if (isSameOrigin) {
+          startSpinner('fetching');
+          const res = await fetch(targetUrl, { signal: ctrl.signal });
+          clearTimeout(timer);
+          status = res.status;
+          html = await res.text();
+        } else {
+          startSpinner('fetching via proxy');
+          const res = await fetch('https://api.allorigins.win/get?url=' + encodeURIComponent(targetUrl), { signal: ctrl.signal });
+          clearTimeout(timer);
+          const json = await res.json();
+          status = json?.status?.http_code || '—';
+          html   = json?.contents || '';
+        }
+      } catch (e) {
+        stopSpinner();
+        await appendLog(e.name === 'AbortError' ? '> timeout after 10s.' : '> network error. proxy may be unavailable.', 'err');
+        runBtn.disabled = false;
+        runBtn.setAttribute('aria-busy', 'false');
+        return;
+      }
+      stopSpinner();
+      const ms = Math.round(performance.now() - t0);
+      await appendLog('> [HTTP ' + status + '] received ' + Math.round(html.length / 1024) + ' KB');
+      await appendLog('> parsing DOM...');
+      await appendLog('> extracting metadata...');
+      const data = extract(html, targetUrl);
+      await appendLog('> done.  (' + ms + ' ms)', 'ok');
+      renderResult(data, status, ms);
+      runBtn.disabled = false;
+      runBtn.setAttribute('aria-busy', 'false');
+    }
+
+    runBtn.addEventListener('click', () => {
+      const raw = urlInput.value.trim();
+      if (!raw) { urlInput.focus(); return; }
+      runScrape(raw);
+    });
+
+    urlInput.addEventListener('keydown', e => {
+      if (e.key === 'Enter') runBtn.click();
+    });
+
+    presets.forEach(btn => {
+      btn.addEventListener('click', () => {
+        urlInput.value = btn.dataset.url;
+        runScrape(btn.dataset.url);
+      });
+    });
+  })();
 </script>
 
 </body>
