@@ -15,6 +15,16 @@ Frontend Developer **Yuri** の実績ポートフォリオ。HTML / CSS / JavaSc
 
 ---
 
+## Lab
+
+<!-- AUTO-GENERATED: index.html #lab section -->
+| Demo | 概要 | 技術 |
+|------|------|------|
+| Live Scraping Demo | URLを入力するとCORSプロキシ経由でHTMLを取得し、title / description / h1 / links / OGP画像を抽出・表示 | Fetch API / DOMParser / allorigins.win |
+<!-- /AUTO-GENERATED -->
+
+---
+
 ## Stack
 
 - **Frontend**: HTML5 / CSS3 / JavaScript / Tailwind / SVG
