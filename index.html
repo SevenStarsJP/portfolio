@@ -165,20 +165,25 @@ section {
 }
 
 .hero-title {
-  font-family: var(--font-d); font-weight: 800;
-  font-size: clamp(3.5rem, 10vw, 9rem);
-  line-height: .93; letter-spacing: -.045em;
-  color: var(--text); margin-bottom: 3.5rem;
+  margin-bottom: 3.5rem;
   animation: fadeUp .85s var(--ease) .1s both;
 }
-.hero-title .bracket { color: var(--text-mute); font-weight: 600; }
-.hero-title .name {
-  font-family: var(--font-s); font-style: italic; font-weight: 400;
-  color: var(--accent); letter-spacing: -.01em;
+.ht-role {
+  display: block;
+  font-family: var(--font-m); font-size: .72rem;
+  color: var(--text-mute); text-transform: uppercase; letter-spacing: .18em;
+  margin-bottom: 1.1rem;
 }
-.hero-title .cursor {
-  display: inline-block; width: .42em; height: .8em;
-  background: var(--accent); vertical-align: -.03em; margin-left: .08em;
+.ht-name {
+  display: block;
+  font-family: var(--font-d); font-weight: 800;
+  font-size: clamp(2.8rem, 6vw, 5rem);
+  line-height: .95; letter-spacing: -.04em;
+  color: var(--text);
+}
+.ht-name .cursor {
+  display: inline-block; width: .32em; height: .75em;
+  background: var(--accent); vertical-align: -.03em; margin-left: .1em;
   animation: blink 1.1s steps(1) infinite;
 }
 
@@ -445,9 +450,8 @@ footer .build .dot { width: 5px; height: 5px; border-radius: 50%; background: va
     <div class="hero-status" role="status">available for freelance</div>
 
     <h1 class="hero-title" id="hero-title">
-      <span class="bracket">&lt;</span>frontend<br />
-      developer<span class="bracket">&nbsp;/&gt;</span><br />
-      <span class="name">Yuri</span><span class="cursor" aria-hidden="true"></span>
+      <span class="ht-role">Frontend Developer</span>
+      <span class="ht-name">Yuri<span class="cursor" aria-hidden="true"></span></span>
     </h1>
 
     <div class="hero-sub">
