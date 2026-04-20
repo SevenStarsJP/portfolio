@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>麺処 黒虎 | 濃厚豚骨醤油ラーメン</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700;900&family=Shippori+Mincho+B1:wght@400;700;800&family=DM+Serif+Display:ital@1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0804;
+    --deep: #1a1208;
+    --red: #c8230a;
+    --red-dark: #8c1507;
+    --gold: #c9973a;
+    --gold-light: #e8c46a;
+    --cream: #f5ede0;
+    --smoke: #d4c9b8;
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--cream);
+    font-family: 'Noto Serif JP', serif;
+    overflow-x: hidden;
+  }
+
+  /* ─── NOISE OVERLAY ─── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.6;
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 80% at 70% 50%, rgba(200,35,10,0.18) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 60% at 20% 80%, rgba(201,151,58,0.08) 0%, transparent 60%),
+      var(--black);
+  }
+
+  .hero-left {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 60px 80px 80px;
+  }
+
+  .hero-eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.4em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 32px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.3s forwards;
+  }
+
+  .hero-title {
+    font-family: 'Shippori Mincho B1', serif;
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: fadeUp 0.9s ease 0.5s forwards;
+  }
+
+  .hero-title .small {
+    display: block;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    color: var(--smoke);
+  }
+
+  .hero-title .big {
+    display: block;
+    font-size: clamp(5rem, 12vw, 9rem);
+    color: var(--cream);
+    letter-spacing: -0.03em;
+    line-height: 0.9;
+  }
+
+  .hero-title .accent {
+    color: var(--red);
+    font-style: italic;
+    font-family: 'DM Serif Display', serif;
+  }
+
+  .hero-desc {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--smoke);
+    max-width: 420px;
+    margin-bottom: 48px;
+    opacity: 0;
+    animation: fadeUp 0.9s ease 0.7s forwards;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.9s ease 0.9s forwards;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--red);
+    color: #fff;
+    padding: 18px 40px;
+    font-family: 'Noto Serif JP', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-decoration: none;
+    transition: background 0.3s, transform 0.2s;
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+  }
+
+  .btn-primary:hover { background: var(--red-dark); transform: translateY(-2px); }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--gold);
+    font-size: 0.9rem;
+    letter-spacing: 0.2em;
+    text-decoration: none;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--gold);
+    transition: color 0.3s, border-color 0.3s;
+  }
+
+  .btn-secondary:hover { color: var(--gold-light); border-color: var(--gold-light); }
+
+  .hero-right {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 40px;
+  }
+
+  .bowl-visual {
+    position: relative;
+    width: 420px;
+    height: 420px;
+    opacity: 0;
+    animation: scaleIn 1s ease 0.6s forwards;
+  }
+
+  .bowl-circle {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: radial-gradient(ellipse at 40% 35%, #3a2010 0%, #1a0c04 50%, #0a0804 100%);
+    box-shadow:
+      0 0 0 2px rgba(201,151,58,0.3),
+      0 0 80px rgba(200,35,10,0.25),
+      0 40px 80px rgba(0,0,0,0.7),
+      inset 0 -20px 60px rgba(0,0,0,0.5);
+  }
+
+  .steam {
+    position: absolute;
+    bottom: 55%;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 18px;
+  }
+
+  .steam-line {
+    width: 3px;
+    height: 60px;
+    background: linear-gradient(to top, rgba(255,255,255,0.15), transparent);
+    border-radius: 10px;
+    animation: steam 2.5s ease-in-out infinite;
+  }
+
+  .steam-line:nth-child(2) { animation-delay: 0.4s; height: 80px; }
+  .steam-line:nth-child(3) { animation-delay: 0.8s; }
+
+  .bowl-text {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .kanji-big {
+    font-family: 'Shippori Mincho B1', serif;
+    font-size: 7rem;
+    font-weight: 800;
+    color: var(--cream);
+    line-height: 1;
+    text-shadow: 0 0 40px rgba(200,35,10,0.4);
+  }
+
+  .kanji-sub {
+    font-size: 0.75rem;
+    letter-spacing: 0.5em;
+    color: var(--gold);
+  }
+
+  .circle-deco {
+    position: absolute;
+    inset: -20px;
+    border-radius: 50%;
+    border: 1px solid rgba(201,151,58,0.15);
+  }
+
+  .circle-deco-2 {
+    position: absolute;
+    inset: -50px;
+    border-radius: 50%;
+    border: 1px dashed rgba(201,151,58,0.08);
+  }
+
+  /* scroll indicator */
+  .scroll-hint {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    opacity: 0;
+    animation: fadeIn 1s ease 1.5s forwards;
+  }
+
+  .scroll-hint span {
+    font-size: 0.65rem;
+    letter-spacing: 0.4em;
+    color: rgba(212,201,184,0.5);
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 50px;
+    background: linear-gradient(to bottom, rgba(201,151,58,0.6), transparent);
+    animation: scrollAnim 2s ease-in-out infinite;
+  }
+
+  /* ─── DIVIDER ─── */
+  .divider {
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+    opacity: 0.3;
+    margin: 0 80px;
+  }
+
+  /* ─── PHILOSOPHY ─── */
+  .philosophy {
+    padding: 120px 80px;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 80px;
+    align-items: center;
+    position: relative;
+  }
+
+  .section-label {
+    writing-mode: vertical-rl;
+    font-size: 0.7rem;
+    letter-spacing: 0.5em;
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+
+  .philosophy-content {}
+
+  .section-num {
+    font-size: 5rem;
+    font-weight: 900;
+    color: rgba(201,151,58,0.12);
+    line-height: 1;
+    margin-bottom: -20px;
+    font-family: 'DM Serif Display', serif;
+    font-style: italic;
+  }
+
+  .section-title {
+    font-family: 'Shippori Mincho B1', serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 32px;
+    color: var(--cream);
+  }
+
+  .section-title em {
+    color: var(--red);
+    font-style: normal;
+  }
+
+  .philosophy-text {
+    font-size: 1rem;
+    line-height: 2;
+    color: var(--smoke);
+    max-width: 560px;
+  }
+
+  .gold-line {
+    width: 60px;
+    height: 2px;
+    background: var(--gold);
+    margin: 32px 0;
+  }
+
+  /* ─── MENU ─── */
+  .menu {
+    padding: 100px 80px;
+    background: linear-gradient(to bottom, transparent, rgba(201,151,58,0.03), transparent);
+  }
+
+  .menu-header {
+    text-align: center;
+    margin-bottom: 80px;
+  }
+
+  .menu-header .section-num { text-align: center; }
+
+  .menu-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+
+  .menu-card {
+    background: var(--deep);
+    padding: 48px 36px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s;
+    cursor: pointer;
+  }
+
+  .menu-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(200,35,10,0.08) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .menu-card:hover { transform: translateY(-4px); }
+  .menu-card:hover::before { opacity: 1; }
+
+  .menu-card.featured {
+    background: linear-gradient(135deg, #1f1006 0%, #150c04 100%);
+    border: 1px solid rgba(201,151,58,0.25);
+  }
+
+  .menu-tag {
+    font-size: 0.65rem;
+    letter-spacing: 0.4em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .menu-tag::before {
+    content: '';
+    width: 20px;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  .menu-name-jp {
+    font-family: 'Shippori Mincho B1', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+    color: var(--cream);
+  }
+
+  .menu-name-en {
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    color: rgba(212,201,184,0.4);
+    margin-bottom: 24px;
+  }
+
+  .menu-desc {
+    font-size: 0.85rem;
+    line-height: 1.9;
+    color: var(--smoke);
+    opacity: 0.8;
+  }
+
+  .menu-price {
+    margin-top: 32px;
+    font-family: 'DM Serif Display', serif;
+    font-style: italic;
+    font-size: 1.8rem;
+    color: var(--gold-light);
+  }
+
+  .menu-price span {
+    font-family: 'Noto Serif JP', serif;
+    font-style: normal;
+    font-size: 0.75rem;
+    color: var(--smoke);
+    margin-left: 4px;
+  }
+
+  /* ─── STATS ─── */
+  .stats {
+    padding: 80px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: rgba(201,151,58,0.1);
+  }
+
+  .stat-item {
+    background: var(--black);
+    padding: 48px 36px;
+    text-align: center;
+  }
+
+  .stat-num {
+    font-family: 'DM Serif Display', serif;
+    font-style: italic;
+    font-size: 4rem;
+    color: var(--gold);
+    line-height: 1;
+  }
+
+  .stat-unit {
+    font-size: 1rem;
+    color: var(--gold);
+  }
+
+  .stat-label {
+    margin-top: 12px;
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    color: var(--smoke);
+    opacity: 0.7;
+  }
+
+  /* ─── COMMITMENT ─── */
+  .commitment {
+    padding: 120px 80px;
+  }
+
+  .commitment-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 40px;
+    margin-top: 80px;
+  }
+
+  .commit-item {
+    padding: 40px;
+    border-left: 2px solid rgba(201,151,58,0.2);
+    transition: border-color 0.3s;
+  }
+
+  .commit-item:hover { border-color: var(--gold); }
+
+  .commit-icon {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+  }
+
+  .commit-title {
+    font-family: 'Shippori Mincho B1', serif;
+    font-size: 1.3rem;
+    margin-bottom: 16px;
+    color: var(--cream);
+  }
+
+  .commit-text {
+    font-size: 0.85rem;
+    line-height: 2;
+    color: var(--smoke);
+    opacity: 0.8;
+  }
+
+  /* ─── ACCESS ─── */
+  .access {
+    padding: 100px 80px;
+    background: var(--deep);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .access-info dt {
+    font-size: 0.7rem;
+    letter-spacing: 0.4em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    margin-top: 32px;
+  }
+
+  .access-info dt:first-child { margin-top: 0; }
+
+  .access-info dd {
+    font-size: 1rem;
+    color: var(--cream);
+    line-height: 1.7;
+  }
+
+  .map-placeholder {
+    background: #0f0b06;
+    border: 1px solid rgba(201,151,58,0.15);
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(212,201,184,0.3);
+    font-size: 0.8rem;
+    letter-spacing: 0.3em;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .map-placeholder::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      repeating-linear-gradient(0deg, rgba(201,151,58,0.03) 0px, rgba(201,151,58,0.03) 1px, transparent 1px, transparent 40px),
+      repeating-linear-gradient(90deg, rgba(201,151,58,0.03) 0px, rgba(201,151,58,0.03) 1px, transparent 1px, transparent 40px);
+  }
+
+  /* ─── CTA BAND ─── */
+  .cta-band {
+    padding: 100px 80px;
+    text-align: center;
+    background: radial-gradient(ellipse at 50% 50%, rgba(200,35,10,0.12) 0%, transparent 70%);
+    position: relative;
+  }
+
+  .cta-band-title {
+    font-family: 'Shippori Mincho B1', serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+
+  .cta-band-sub {
+    color: var(--smoke);
+    font-size: 1rem;
+    margin-bottom: 48px;
+    opacity: 0.8;
+  }
+
+  .cta-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    padding: 60px 80px;
+    border-top: 1px solid rgba(201,151,58,0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-brand {
+    font-family: 'Shippori Mincho B1', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--cream);
+  }
+
+  .footer-copy {
+    font-size: 0.75rem;
+    color: rgba(212,201,184,0.3);
+    letter-spacing: 0.2em;
+  }
+
+  .footer-nav {
+    display: flex;
+    gap: 32px;
+  }
+
+  .footer-nav a {
+    color: var(--smoke);
+    text-decoration: none;
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    opacity: 0.6;
+    transition: opacity 0.2s;
+  }
+
+  .footer-nav a:hover { opacity: 1; }
+
+  /* ─── KEYFRAMES ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes scaleIn {
+    from { opacity: 0; transform: scale(0.85); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  @keyframes steam {
+    0%, 100% { transform: scaleX(1) translateY(0); opacity: 0.5; }
+    50% { transform: scaleX(1.3) translateY(-20px); opacity: 0; }
+  }
+
+  @keyframes scrollAnim {
+    0% { transform: scaleY(0); transform-origin: top; }
+    50% { transform: scaleY(1); transform-origin: top; }
+    51% { transform: scaleY(1); transform-origin: bottom; }
+    100% { transform: scaleY(0); transform-origin: bottom; }
+  }
+
+  /* ─── SCROLL ANIMATIONS ─── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-left { padding: 80px 24px 40px; }
+    .hero-right { padding: 0 24px 80px; }
+    .bowl-visual { width: 280px; height: 280px; }
+    .kanji-big { font-size: 5rem; }
+    .philosophy { grid-template-columns: 1fr; padding: 80px 24px; gap: 32px; }
+    .section-label { writing-mode: horizontal-tb; }
+    .menu { padding: 80px 24px; }
+    .menu-grid { grid-template-columns: 1fr; }
+    .stats { grid-template-columns: 1fr 1fr; padding: 40px 24px; }
+    .commitment { padding: 80px 24px; }
+    .commitment-grid { grid-template-columns: 1fr; }
+    .access { grid-template-columns: 1fr; padding: 80px 24px; }
+    .cta-band { padding: 80px 24px; }
+    footer { flex-direction: column; gap: 24px; padding: 40px 24px; text-align: center; }
+    .footer-nav { flex-wrap: wrap; justify-content: center; }
+    .divider { margin: 0 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="hero-bg"></div>
+
+  <div class="hero-left">
+    <p class="hero-eyebrow">Since 1998 · 東京 神田</p>
+    <h1 class="hero-title">
+      <span class="small">麺処</span>
+      <span class="big">黒<span class="accent">虎</span></span>
+    </h1>
+    <p class="hero-desc">
+      26年間、一度もスープのレシピを変えていない。<br>
+      毎朝4時から始まる仕込み、国産豚骨18時間炊き。<br>
+      「また来たくなる一杯」を、ただ追い続ける。
+    </p>
+    <div class="hero-cta">
+      <a href="#menu" class="btn-primary">メニューを見る →</a>
+      <a href="#access" class="btn-secondary">アクセス・営業時間</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="bowl-visual">
+      <div class="circle-deco-2"></div>
+      <div class="circle-deco"></div>
+      <div class="bowl-circle"></div>
+      <div class="steam">
+        <div class="steam-line"></div>
+        <div class="steam-line"></div>
+        <div class="steam-line"></div>
+      </div>
+      <div class="bowl-text">
+        <span class="kanji-big">虎</span>
+        <span class="kanji-sub">KURO TORA</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-hint">
+    <span>SCROLL</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ═══ PHILOSOPHY ═══ -->
+<div class="divider"></div>
+<section class="philosophy reveal">
+  <div class="section-label">Our Philosophy</div>
+  <div class="philosophy-content">
+    <div class="section-num">01</div>
+    <h2 class="section-title">
+      妥協を、<em>削ぎ落とす</em>。<br>
+      旨さだけを、残す。
+    </h2>
+    <div class="gold-line"></div>
+    <p class="philosophy-text">
+      化学調味料は一切使わない。豚骨・鶏ガラ・煮干し、素材だけで組み上げる複層スープ。
+      麺は毎朝製麺所から直送する中細ストレート。チャーシューは肩ロースを低温で8時間。
+      一切の手を抜かないから、一口で違いがわかる。それが黒虎の哲学です。
+    </p>
+  </div>
+</section>
+<div class="divider"></div>
+
+<!-- ═══ STATS ═══ -->
+<section class="stats reveal">
+  <div class="stat-item">
+    <div class="stat-num">26<span class="stat-unit">年</span></div>
+    <div class="stat-label">創業からの年月</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">18<span class="stat-unit">h</span></div>
+    <div class="stat-label">スープの炊き時間</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">0</div>
+    <div class="stat-label">化学調味料の使用量</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">4<span class="stat-unit">:00</span></div>
+    <div class="stat-label">毎朝の仕込み開始</div>
+  </div>
+</section>
+
+<!-- ═══ MENU ═══ -->
+<section class="menu" id="menu">
+  <div class="menu-header reveal">
+    <div class="section-num">02</div>
+    <h2 class="section-title">看板メニュー</h2>
+  </div>
+
+  <div class="menu-grid">
+    <div class="menu-card featured reveal">
+      <div class="menu-tag">Signature</div>
+      <div class="menu-name-jp">黒虎そば</div>
+      <div class="menu-name-en">KURO TORA SOBA</div>
+      <p class="menu-desc">
+        豚骨・鶏ガラ・煮干しの三位一体スープ。
+        濃厚でありながら後味はすっきり。
+        チャーシュー2枚・味玉・海苔・メンマ付き。
+      </p>
+      <div class="menu-price">980<span>円（税込）</span></div>
+    </div>
+
+    <div class="menu-card reveal">
+      <div class="menu-tag">Classic</div>
+      <div class="menu-name-jp">醤油そば</div>
+      <div class="menu-name-en">SHOYU SOBA</div>
+      <p class="menu-desc">
+        鶏清湯に特製醤油ダレを合わせた
+        端正な一杯。すっきりとした旨みの中に
+        深みのある余韻が続く。
+      </p>
+      <div class="menu-price">880<span>円（税込）</span></div>
+    </div>
+
+    <div class="menu-card reveal">
+      <div class="menu-tag">Special</div>
+      <div class="menu-name-jp">辛味噌そば</div>
+      <div class="menu-name-en">SPICY MISO SOBA</div>
+      <p class="menu-desc">
+        国産3種の味噌をブレンドし、
+        自家製辛味ペーストで仕上げた限定麺。
+        辛さの中に深い旨みが潜む。
+      </p>
+      <div class="menu-price">1,050<span>円（税込）</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ COMMITMENT ═══ -->
+<section class="commitment">
+  <div class="reveal">
+    <div class="section-num">03</div>
+    <h2 class="section-title">こだわり</h2>
+  </div>
+
+  <div class="commitment-grid">
+    <div class="commit-item reveal">
+      <div class="commit-icon">🐷</div>
+      <div class="commit-title">国産素材のみ使用</div>
+      <p class="commit-text">豚骨は鹿児島産黒豚、野菜は毎朝市場から直送。産地が明確な食材だけを使います。</p>
+    </div>
+    <div class="commit-item reveal">
+      <div class="commit-icon">🍜</div>
+      <div class="commit-title">毎朝製麺・当日使い切り</div>
+      <p class="commit-text">麺は近隣の専門製麺所から毎朝届く中細ストレート。前日製麺は一切使いません。</p>
+    </div>
+    <div class="commit-item reveal">
+      <div class="commit-icon">🥩</div>
+      <div class="commit-title">低温調理チャーシュー</div>
+      <p class="commit-text">肩ロースを62℃で8時間かけてじっくり火入れ。とろける食感と肉の旨みを最大限に引き出します。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ ACCESS ═══ -->
+<section class="access" id="access">
+  <div class="reveal">
+    <div class="section-num">04</div>
+    <h2 class="section-title">アクセス</h2>
+    <div class="gold-line"></div>
+    <dl class="access-info">
+      <dt>住所</dt>
+      <dd>東京都千代田区神田小川町2-1-1<br>黒虎ビル 1F</dd>
+      <dt>営業時間</dt>
+      <dd>
+        月〜金：11:00 – 15:00 / 18:00 – 22:00<br>
+        土日祝：11:00 – 21:00（通し営業）<br>
+        <small style="opacity:0.5; font-size:0.8rem;">※スープ売り切れ次第終了</small>
+      </dd>
+      <dt>定休日</dt>
+      <dd>不定休（SNSでお知らせ）</dd>
+      <dt>アクセス</dt>
+      <dd>JR神田駅 西口 徒歩3分<br>東京メトロ小川町駅 B6出口 徒歩1分</dd>
+    </dl>
+  </div>
+
+  <div class="map-placeholder reveal">
+    MAP
+  </div>
+</section>
+
+<!-- ═══ CTA BAND ═══ -->
+<section class="cta-band reveal">
+  <h2 class="cta-band-title">今日、食べに来ませんか。</h2>
+  <p class="cta-band-sub">一杯、召し上がれ。26年変わらぬスープがお待ちしております。</p>
+  <div class="cta-buttons">
+    <a href="#access" class="btn-primary">アクセスを確認する →</a>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="footer-brand">麺処 黒虎</div>
+  <nav class="footer-nav">
+    <a href="#menu">メニュー</a>
+    <a href="#access">アクセス</a>
+    <a href="#">Instagram</a>
+  </nav>
+  <p class="footer-copy">© 2024 麺処 黒虎. All rights reserved.</p>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
