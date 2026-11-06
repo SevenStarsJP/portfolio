@@ -1,6 +1,6 @@
-# Yuri — Frontend Portfolio
+# SevenStarsJP — Portfolio
 
-Frontend Developer **Yuri** の実績ポートフォリオ。HTML / CSS / JavaScript で設計から実装まで一気通貫で制作しています。
+SevenStarsJP のポートフォリオ。業務の自動化とWebサイト制作。
 
 **Live**: https://sevenstarsjp.github.io/portfolio/
 
@@ -8,36 +8,38 @@ Frontend Developer **Yuri** の実績ポートフォリオ。HTML / CSS / JavaSc
 
 ## Works
 
+### Case studies（業務の自動化・お客様の名前は伏せています）
+
 | # | Title | Type | Link |
 |---|-------|------|------|
-| 01 | 麺処 黒虎 | ブランド LP（和モダン・ダーク編集） | [works/ramen-kurotora/](./works/ramen-kurotora/) |
-| 02 | AUREL Fine Jewelry | EC LP（ラグジュアリー・ミニマル） | [works/aurel-jewelry/](./works/aurel-jewelry/) |
+| 01 | 不動産会社様：物件情報の台帳づくりの自動化 | Windows アプリ（Python・Playwright・Excel） | [cases/img/case-realestate.png](./cases/img/case-realestate.png) |
+| 02 | 小売店様：卸サイトの入荷監視と自動の仕入れ | Windows アプリ（Python・requests・Excel） | [cases/img/case-wholesale.png](./cases/img/case-wholesale.png) |
 
----
+### Design samples（架空の会社・医院・講座を題材にした自主制作の見本。実案件の納品物ではありません）
 
-## Lab
-
-<!-- AUTO-GENERATED: index.html #lab section -->
-| Demo | 概要 | 技術 |
-|------|------|------|
-| Live Scraping Demo | URLを入力するとCORSプロキシ経由でHTMLを取得し、title / description / h1 / links / OGP画像を抽出・表示 | Fetch API / DOMParser / allorigins.win |
-<!-- /AUTO-GENERATED -->
+| # | Title | Type | Link |
+|---|-------|------|------|
+| 03 | ナナホシ精工（架空の精密部品メーカー） | 会社のサイト | [samples/corporate/](./samples/corporate/) |
+| 04 | ななほし台内科・胃腸内科クリニック（架空） | 医院のサイト | [samples/clinic/](./samples/clinic/) |
+| 05 | はじめての経理 オンライン講座（架空） | 講座の紹介ページ | [samples/course/](./samples/course/) |
 
 ---
 
 ## Stack
 
-- **Frontend**: HTML5 / CSS3 / JavaScript / Tailwind / SVG
-- **Automation**: Python (Playwright, BeautifulSoup) / Google Apps Script
+- **Automation**: Python (Playwright, requests, BeautifulSoup, openpyxl, PyInstaller) / Google Apps Script / Excel VBA
+- **Web**: HTML5 / CSS3 / JavaScript / Tailwind / SVG
 - **Tooling**: Git / GitHub Pages / Figma / VS Code
 
 ---
 
 ## Contact
 
-LP 制作・EC サイト・業務自動化の相談はココナラから。
+業務の自動化・Webサイト制作のご相談は、ココナラからどうぞ。
 
 - ココナラ: https://coconala.com/users/5984428
+- クラウドワークス: https://crowdworks.jp/public/employees/6892188
+- ランサーズ: https://www.lancers.jp/profile/SevenStarsJP_
 
 ---
 
@@ -55,4 +57,4 @@ python -m http.server 8080
 
 ## License
 
-ポートフォリオに掲載している作品のコード・ビジュアルは制作者 Yuri に帰属します。
+ポートフォリオに掲載している作品のコード・ビジュアルは制作者 SevenStarsJP に帰属します。写真は Unsplash の無料素材です（[samples/img/CREDITS.md](./samples/img/CREDITS.md)）。

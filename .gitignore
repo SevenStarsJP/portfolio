@@ -1,0 +1,9 @@
+# 作業メモ（公開しない）
+CLAUDE.md
+project_log.md
+
+# 画像の作り方の素材とスクリプト（公開するのは cases/img/ だけ）
+cases/src/
+cases/*.html
+cases/*.css
+cases/*.py
