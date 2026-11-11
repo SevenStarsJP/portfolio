@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>お店の手作業を、ひとつずつ減らします — SevenStarsJP</title>
+<meta name="description" content="予約の後の台帳づけ、月謝や振替の管理、見積書づくり。毎日くり返している作業を、お客様の Google のアカウントの中で動く仕組みにして、決まった料金でお作りします。" />
+<meta property="og:title" content="お店の手作業を、ひとつずつ減らします — SevenStarsJP" />
+<meta property="og:description" content="予約の後の台帳づけ、月謝や振替の管理、見積書づくり。毎日くり返している作業を、お客様の Google のアカウントの中で動く仕組みにして、決まった料金でお作りします。" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://sevenstarsjp.github.io/portfolio/shop/" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231f3a5f'/%3E%3Crect x='7' y='7' width='18' height='18' fill='none' stroke='%23fff' stroke-width='3'/%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&display=swap" rel="stylesheet" />
+<style>
+  /* トップページ（../index.html）と同じ色・書体・部品。変えるときは両方を合わせる */
+  :root {
+    --ink: #1d2733;
+    --sub: #5a6573;
+    --line: #d5dbe2;
+    --bg: #ffffff;
+    --paper: #f4f6f8;
+    --navy: #1f3a5f;
+    --accent: #c8501e;
+    --accent-deep: #a8411a;
+    --wrap: 1120px;
+    --narrow: 820px;
+    --gut: 24px;
+    --font: "BIZ UDPGothic", "BIZ UDPゴシック", "Yu Gothic UI", "Meiryo", sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font);
+    font-size: 16px; line-height: 1.85; -webkit-font-smoothing: antialiased;
+    word-break: auto-phrase; line-break: strict;
+  }
+  a { color: inherit; }
+  .wrap { width: min(100% - var(--gut) * 2, var(--wrap)); margin-inline: auto; }
+  .ph { display: inline-block; }
+  .skip { position: absolute; left: 8px; top: -60px; z-index: 100; background: var(--navy); color: #fff; padding: 8px 14px; text-decoration: none; }
+  .skip:focus { top: 8px; }
+  :focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    min-height: 52px; padding: 12px 26px; font: 700 16px/1.4 var(--font); text-decoration: none;
+    border: 2px solid var(--accent); border-radius: 3px; background: var(--accent); color: #fff;
+    transition: background-color .2s, border-color .2s, color .2s;
+  }
+  .btn:hover { background: var(--accent-deep); border-color: var(--accent-deep); }
+
+  .head { position: sticky; top: 0; z-index: 50; background: #fff; border-bottom: 1px solid var(--line); }
+  .head .wrap { display: flex; align-items: center; gap: 28px; height: 72px; }
+  .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; margin-right: auto; }
+  .brand-mark { width: 30px; height: 30px; flex: none; }
+  .brand-name { display: block; font-weight: 700; font-size: 20px; letter-spacing: .02em; color: var(--navy); line-height: 1.2; }
+  .brand-sub { display: block; font-size: 12px; color: var(--sub); line-height: 1.3; }
+  .head .btn { min-height: 44px; padding: 8px 18px; font-size: 15px; white-space: nowrap; }
+  @media (max-width: 520px) { .brand-sub { display: none; } .head .btn { padding: 8px 12px; font-size: 14px; } }
+  @media (max-width: 380px) {
+    .head .wrap { gap: 12px; } .brand { gap: 8px; } .brand-mark { width: 24px; height: 24px; }
+    .brand-name { font-size: 17px; } .head .btn { min-height: 40px; padding: 6px 10px; font-size: 13px; }
+  }
+
+  .hero { padding: 72px 0 76px; border-bottom: 1px solid var(--line); }
+  .hero h1 { margin: 0; max-width: 18em; font-size: clamp(30px, 4.2vw, 48px); line-height: 1.4; font-weight: 700; letter-spacing: .01em; color: var(--ink); }
+  .hero .lead { margin: 24px 0 0; max-width: 40em; font-size: 17px; color: var(--sub); }
+  .hero .wrap { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 56px; align-items: center; }
+  .hero-fig { margin: 0; border: 1px solid var(--line); border-radius: 4px; overflow: hidden; background: #fff; }
+  .hero-fig img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; }
+  @media (max-width: 900px) { .hero .wrap { grid-template-columns: 1fr; gap: 32px; } }
+  @media (max-width: 640px) { .hero { padding: 44px 0 52px; } }
+
+  .sec { padding: 80px 0; }
+  .sec.gray { background: var(--paper); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .sec-head { margin-bottom: 36px; }
+  .sec-head h2 {
+    margin: 0; font-size: clamp(24px, 2.6vw, 32px); line-height: 1.4; font-weight: 700; color: var(--navy);
+    display: flex; align-items: center; gap: 14px;
+  }
+  .sec-head h2::before { content: ""; width: 6px; height: 1.1em; background: var(--navy); flex: none; }
+  @media (max-width: 640px) { .sec { padding: 56px 0; } .sec-head { margin-bottom: 26px; } }
+
+  /* 手作業の一覧：写真・業種・困りごとを横に並べる */
+  .chores { list-style: none; margin: 0; padding: 0; border-top: 2px solid var(--navy); }
+  .chores li { display: grid; grid-template-columns: 168px minmax(0, 1fr); gap: 24px; align-items: center; padding: 16px 4px; border-bottom: 1px solid var(--line); }
+  .chores img { display: block; width: 100%; height: auto; border-radius: 3px; }
+  .chores .k { margin: 0; font-weight: 700; color: var(--navy); }
+  .chores p { margin: 0; }
+  @media (max-width: 600px) { .chores li { grid-template-columns: 112px minmax(0, 1fr); gap: 14px; align-items: start; } }
+
+  /* 例：大きさをそろえないで、文の長さなりに縦に並べる */
+  .examples { display: grid; gap: 0; border-left: 4px solid var(--accent); background: #fff; }
+  .ex { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr); gap: 32px; align-items: center; padding: 28px 30px; border-bottom: 1px solid var(--line); }
+  .ex:last-child { border-bottom: 0; }
+  .ex h3 { margin: 0 0 6px; font-size: 19px; line-height: 1.5; }
+  .ex p { margin: 0; }
+  .ex-img { display: block; }
+  .ex-img:hover img { border-color: var(--navy); }
+  .ex img { display: block; width: 100%; height: auto; border: 1px solid var(--line); border-radius: 4px; }
+  @media (max-width: 860px) { .ex { grid-template-columns: 1fr; gap: 16px; } }
+  .aside { margin: 22px 0 0; font-size: 15px; color: var(--sub); }
+  .aside a { color: var(--navy); text-underline-offset: 3px; }
+  @media (max-width: 600px) { .ex { padding: 22px 20px; } }
+
+  /* 料金 */
+  .prices { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 28px; align-items: start; }
+  .price { background: #fff; border: 1px solid var(--line); border-radius: 4px; padding: 30px 32px; }
+  .price.main { border: 2px solid var(--navy); }
+  .price h3 { margin: 0; font-size: 18px; color: var(--navy); line-height: 1.5; }
+  .price .yen { margin: 6px 0 18px; font-size: clamp(28px, 3.2vw, 36px); font-weight: 700; line-height: 1.3; }
+  .price .yen small { font-size: 15px; font-weight: 700; color: var(--sub); margin-left: 6px; }
+  .price .tag { display: inline-block; margin-left: 8px; padding: 0 8px; font-size: 13px; font-weight: 700; color: var(--navy); border: 1px solid var(--navy); border-radius: 2px; vertical-align: 2px; }
+  .price ul { list-style: none; margin: 0; padding: 0; }
+  .price li { position: relative; padding-left: 22px; margin-bottom: 8px; }
+  .price li::before { content: ""; position: absolute; left: 2px; top: .72em; width: 8px; height: 8px; background: var(--accent); }
+  @media (max-width: 860px) { .prices { grid-template-columns: 1fr; } .price { padding: 26px 22px; } }
+
+  /* 進め方 */
+  .steps { list-style: none; margin: 0; padding: 0; counter-reset: s; border: 1px solid var(--line); background: #fff; }
+  .steps li { display: grid; grid-template-columns: 36px minmax(0, 1fr); gap: 18px; align-items: start; padding: 20px 24px; border-top: 1px solid var(--line); }
+  .steps li:first-child { border-top: 0; }
+  .steps .no { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; background: var(--navy); color: #fff; font-weight: 700; font-size: 17px; }
+  .steps p { margin: 4px 0 0; }
+  .after { margin: 22px 0 0; font-weight: 700; }
+
+  /* よくある質問 */
+  .faq { margin: 0; }
+  .faq div { padding: 22px 0; border-top: 1px solid var(--line); }
+  .faq div:last-child { border-bottom: 1px solid var(--line); }
+  .faq dt { font-weight: 700; color: var(--navy); }
+  .faq dd { margin: 6px 0 0; }
+
+  /* ご相談 */
+  .contact { background: var(--navy); color: #fff; padding: 76px 0; }
+  .contact h2 { margin: 0; font-size: clamp(24px, 2.6vw, 32px); line-height: 1.4; }
+  .contact .who { margin: 18px 0 0; font-size: 20px; font-weight: 700; }
+  .contact .mail { margin: 6px 0 0; font-size: 18px; overflow-wrap: anywhere; }
+  .contact .mail a { color: #fff; text-underline-offset: 4px; }
+  .contact .free { margin: 14px 0 0; color: #dfe6ee; }
+
+  .foot { padding: 24px 0; font-size: 13px; color: var(--sub); border-top: 1px solid var(--line); }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">本文へ移動</a>
+
+<header class="head">
+  <div class="wrap">
+    <a class="brand" href="../" aria-label="SevenStarsJP トップへ">
+      <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" fill="#1f3a5f"/><rect x="7" y="7" width="18" height="18" fill="none" stroke="#fff" stroke-width="3"/></svg>
+      <span>
+        <span class="brand-name">SevenStarsJP</span>
+        <span class="brand-sub">業務の自動化とWebサイト制作</span>
+      </span>
+    </a>
+    <a class="btn" href="#contact">ご相談はこちら</a>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="hero" id="top" aria-labelledby="hero-title">
+    <div class="wrap">
+      <div>
+        <h1 id="hero-title"><span class="ph">お店の手作業を、</span><span class="ph">ひとつずつ減らします</span></h1>
+        <p class="lead"><span class="ph">予約の後の台帳づけ、</span><span class="ph">月謝や振替の管理、</span><span class="ph">見積書づくり。</span><span class="ph">毎日くり返している作業を、</span><span class="ph">お客様の Google のアカウントの中で動く仕組みにして、</span><span class="ph">決まった料金でお作りします。</span></p>
+      </div>
+      <figure class="hero-fig">
+        <img src="img/photo-hero.jpg" width="1120" height="630" alt="窓から光の入る、カフェの窓際の席" fetchpriority="high" />
+      </figure>
+    </div>
+  </section>
+
+  <section class="sec" id="chores" aria-labelledby="chores-title">
+    <div class="wrap">
+      <div class="sec-head"><h2 id="chores-title">こんな手作業はありませんか</h2></div>
+      <ul class="chores">
+        <li><img src="img/photo-school.jpg" width="800" height="500" loading="lazy" alt="ピアノを弾く手元" /><div><p class="k">教室</p><p>振替や欠席の連絡を LINE や紙で受けて、手で表に書き写している</p></div></li>
+        <li><img src="img/photo-koumuten.jpg" width="800" height="500" loading="lazy" alt="木の家の模型を両手で包む手元" /><div><p class="k">工務店</p><p>見積書を毎回 Excel で作り直し、現場の写真がスマホの中に散らばっている</p></div></li>
+        <li><img src="img/photo-inshoku.jpg" width="800" height="500" loading="lazy" alt="板前が包丁で大根をむく手元" /><div><p class="k">飲食</p><p>団体のご予約やご相談をお電話とメモで受けて、あとから探すのに手間がかかる</p></div></li>
+        <li><img src="img/photo-salon.jpg" width="800" height="500" loading="lazy" alt="美容師が髪をカットする手元" /><div><p class="k">美容室・整体</p><p>ご予約の後の台帳づけと、前日のご連絡を手で送っている</p></div></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="sec gray" id="examples" aria-labelledby="examples-title">
+    <div class="wrap">
+      <div class="sec-head"><h2 id="examples-title">お作りできるものの例</h2></div>
+      <div class="examples">
+        <div class="ex"><div class="ex-text"><h3>教室の振替の受付</h3><p>生徒さんがフォームから振替を申し込むと、表に自動で入り、月謝の未納と振替の残りが一覧になります</p></div><a class="ex-img" href="img/ex-school.png" target="_blank" rel="noopener"><img src="img/ex-school.png" width="1200" height="680" loading="lazy" alt="これまでは振替の連絡を LINE や紙で受けて手で表に書き写していたのを、フォームから申し込むと表に自動で入り、月謝と振替の残りが一覧になる流れの見本の図（架空の教室・値はダミー）" /></a></div>
+        <div class="ex"><div class="ex-text"><h3>工務店の見積書</h3><p>項目と数量を選ぶと、いつもの書式の見積書が PDF でできあがります。現場の写真は、日付と現場名で自動で整理されます</p></div><a class="ex-img" href="img/ex-koumuten.png" target="_blank" rel="noopener"><img src="img/ex-koumuten.png" width="1200" height="680" loading="lazy" alt="見積りの項目と数量を選ぶと PDF の見積書ができ、現場の写真が日付と現場名のフォルダに整理される流れの見本の図（架空の工務店・値はダミー）" /></a></div>
+        <div class="ex"><div class="ex-text"><h3>飲食の団体のご相談</h3><p>フォームで受け付けて一覧にし、お返事の下書きまで用意します</p></div><a class="ex-img" href="img/ex-inshoku.png" target="_blank" rel="noopener"><img src="img/ex-inshoku.png" width="1200" height="680" loading="lazy" alt="団体のご相談をフォームで受けて一覧にし、お返事の下書きを用意する流れの見本の図（架空のお店・値と文はダミー）" /></a></div>
+      </div>
+      <p class="aside">（業務システムと小売店様向けの事例は、<a href="../#cases">トップページの「事例」</a>をご覧ください）</p>
+    </div>
+  </section>
+
+  <section class="sec" id="price" aria-labelledby="price-title">
+    <div class="wrap">
+      <div class="sec-head"><h2 id="price-title">料金</h2></div>
+      <div class="prices">
+        <div class="price main">
+          <h3>手作業1つの自動化</h3>
+          <p class="yen">58,000円<small>（税込）</small></p>
+          <ul>
+            <li>1つの手作業を、お客様の Google のアカウントの中で動く仕組みにします</li>
+            <li>期間の目安は2週間ほどです（お見積りのときに納品予定日をお伝えします）</li>
+            <li>納品から30日は、不具合を直します</li>
+          </ul>
+        </div>
+        <div class="price">
+          <h3>月額のプラン<span class="tag">選べます</span></h3>
+          <p class="yen">月5,000円<small>（税込）</small></p>
+          <ul>
+            <li>月に1回の点検</li>
+            <li>軽い修正を月に1件</li>
+            <li>止まったときの対応</li>
+            <li>やめても、作った仕組みはそのままお使いいただけます</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec gray" id="flow" aria-labelledby="flow-title">
+    <div class="wrap">
+      <div class="sec-head"><h2 id="flow-title">進め方</h2></div>
+      <ol class="steps">
+        <li><span class="no" aria-hidden="true">1</span><p>選んで答えるだけの質問票をお送りします</p></li>
+        <li><span class="no" aria-hidden="true">2</span><p>画面の見本とお見積りを、文書でお送りします</p></li>
+        <li><span class="no" aria-hidden="true">3</span><p>ご了承をいただいてから作ります</p></li>
+        <li><span class="no" aria-hidden="true">4</span><p>お客様の Google のアカウントに入れる手順書（画面の写真つき）をお送りします</p></li>
+        <li><span class="no" aria-hidden="true">5</span><p>動きを確かめていただき、直しを反映して納品します</p></li>
+      </ol>
+      <p class="after">お電話やご来店は要りません。すべてメールと文書でお進めします。</p>
+    </div>
+  </section>
+
+  <section class="sec" id="faq" aria-labelledby="faq-title">
+    <div class="wrap">
+      <div class="sec-head"><h2 id="faq-title">よくある質問</h2></div>
+      <dl class="faq">
+        <div><dt>データはどこに置かれますか</dt><dd>お客様の Google のアカウントの中だけです。こちらで預かることはありません</dd></div>
+        <div><dt>パソコンが苦手でも使えますか</dt><dd>普段お使いの Google のフォームと表で動きます。手順書には画面の写真を付けます</dd></div>
+        <div><dt>やめたら何が残りますか</dt><dd>作った仕組みはお客様の物として、そのままお使いいただけます</dd></div>
+        <div><dt>お受けしていないこと</dt><dd>ほかの会社のシステムや予約サイトの中身を書き換えること、お客様のアカウントのパスワードをお預かりすること</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="contact" id="contact" aria-labelledby="contact-title">
+    <div class="wrap">
+      <h2 id="contact-title">ご相談</h2>
+      <p class="who">SevenStarsJP</p>
+      <p class="mail"><a href="mailto:sevenstarsjp.office@gmail.com">sevenstarsjp.office@<wbr>gmail.com</a></p>
+      <p class="free">ご相談とお見積りは無料です。</p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap">© 2026 SevenStarsJP</div>
+</footer>
+</body>
+</html>
